@@ -1,45 +1,74 @@
 html {
   font-family: 'Roboto', sans-serif;
 }
+
+body {
+  padding: 0 10px;
+}
+
 ul {
   list-style-type: none;
 }
-.calendar__sector {
-  
-  .sector {
-    display: flex;
-    &-column {
-      text-align: center;
-      flex-grow: 1;
-    }
-    &-line {
-      height: 60px;
-      border: 1px solid #ccc;
-    }
-  }
-}
+
+
+
+
 .week__days {
   display: flex;
+
   li {
     flex-grow: 1;
     text-align: center;
   }
 }
+
 .week__days-number {
   display: flex;
+
   .week-day {
     flex-grow: 1;
     text-align: center;
     font-size: 24px;
     width: 14%;
+
     span {
       padding: 16px;
       border-radius: 50%;
+      cursor: pointer;
+      &:hover {
+        background-color: #f1f3f4;
+      }
     }
+
     .day-today {
       color: #fff;
-      background-color:#1a73e8;
+      background-color: #1a73e8;
+      &:hover {
+        background-color: #1a40e8;
+      }
     }
   }
+}
+.d-flex {
+  display: flex;
+  align-items: center;
+}
+.input-field {
+  margin-top: 50px !important;
+  .icon-time {
+    margin-right: 20px;
+  }
+}
+.border-none {
+  border-bottom: none !important;
+  margin: 0 !important;
+}
+.modal {
+  max-width: 30%;
+}
+.modal-close-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 @import 'header';

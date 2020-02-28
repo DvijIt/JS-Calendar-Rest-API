@@ -16,54 +16,69 @@
 
 <body>
   <div class="calendar">
-    <div class="calendar__header">
-      <button class="col s1 create__btn">
-        <div class="waves-effect waves-teal btn-flat create__btn">
-          <div class="create__btn-container"><svg width="36" height="36" viewBox="0 0 36 36">
-              <path fill="#34A853" d="M16 16v14h4V20z"></path>
-              <path fill="#4285F4" d="M30 16H20l-4 4h14z"></path>
-              <path fill="#FBBC05" d="M6 16v4h10l4-4z"></path>
-              <path fill="#EA4335" d="M20 16V6h-4v14z"></path>
-              <path fill="none" d="M0 0h36v36H0z"></path>
-            </svg>
-            <span>Создать</span></div>
+    <div class="calendar__block-fixed">
+      <div class="calendar__header">
+        <button class="col s1 create__btn modal-trigger" data-target="modal1">
+          <div class="waves-effect btn-flat create__btn">
+            <div class="create__btn-container"><svg width="36" height="36" viewBox="0 0 36 36">
+                <path fill="#34A853" d="M16 16v14h4V20z"></path>
+                <path fill="#4285F4" d="M30 16H20l-4 4h14z"></path>
+                <path fill="#FBBC05" d="M6 16v4h10l4-4z"></path>
+                <path fill="#EA4335" d="M20 16V6h-4v14z"></path>
+                <path fill="none" d="M0 0h36v36H0z"></path>
+              </svg>
+              <span>Создать</span></div>
+          </div>
+        </button>
+        <button class="col waves-effect today getToday">
+          Сегодня
+        </button>
+        <div class="col s2 date__navigation">
+          <span class="date__navigation-arrow arrow-prev"><i class="material-icons">chevron_left</i></span>
+          <span class="date__navigation-arrow arrow-next"><i class="material-icons">chevron_right</i></span>
         </div>
-      </button>
-      <button class="col waves-effect waves-teal today">
-        Сегодня
-      </button>
-      <div class="col s2 date__navigation">
-        <span class="date__navigation-arrow arrow-left"><i class="material-icons">chevron_left</i></span>
-        <span class="date__navigation-arrow arrow-right"><i class="material-icons">chevron_right</i></span>
+        <div class="date__range">
+          <span class="date__month"></span>
+        </div>
       </div>
-      <div class="date__range">
-        <span class="date__month">Янв</span>
+      <div class="calendar__block-week">
+        <div class="calendar__timezone"></div>
+        <div class="calendar__week">
+          <ul class="week__days"></ul>
+          <ul class="week__days-number"></ul>
+        </div>
       </div>
     </div>
     <div class="calendar__body">
-      <!-- Time Line -->
-      <div class="timeline">
-        <div class="timeline__timezone"></div>
+      <!-- Calendar Time Line -->
+      <div class="calendar__timeline">
         <div class="timeline__block-time">
           <ul class="time-of-day"></ul>
         </div>
       </div>
-      <!-- calendar grid -->
-      <div class="calendar__grid">
-        <div class="calendar__week">
-          <ul class="week__days">
-
-          </ul>
-          <ul class="week__days-number">
-
-          </ul>
-        </div>
-        <div class="calendar__sector">
-          <div class="sector">
-
+      <!-- Calendar Body Grid -->
+      <div class="calendar__sector"></div>
+    </div>
+    <!-- Modal Structure -->
+    <div id="modal1" class="event-modal modal">
+      <div class="modal-content">
+        <form name="eventForm">
+          <div class="input-field">
+            <input placeholder="Добавьте название" name="firstName" type="text" class="validate">
           </div>
-        </div>
+          <div class="input-field d-flex">
+            <i class="material-icons icon-time">access_time</i>
+            <input type="text" class="border-none" name="datepicker" class="datepicker">
+          </div>
+          <div class="input-field d-flex">
+            <i class="material-icons icon-time">subject</i>
+            <textarea name="description" placeholder="Добавьте описание" class="materialize-textarea border-none"></textarea>
+          </div>
+          <button class="btn-flat material-icons">delete</button>
+          <button class="btn blue darken-2 waves-effect right" type="submit" name="eventForm">Сохранить</button>
+        </form>
       </div>
+      <button class="modal-close btn-flat material-icons modal-close-btn">close</button>
     </div>
     <script src="src/scripts/index.js" type="module"></script>
 </body>

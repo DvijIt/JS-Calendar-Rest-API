@@ -1,3 +1,4 @@
+
 .calendar {
   &__header {
     padding: 8px 16px;
@@ -7,12 +8,15 @@
     border-bottom: 1px solid #dadce0;
     padding-bottom: 20px;
   }
+
   &__body {
     display: flex;
   }
-  &__grid {
-    width: 90%;
-  }
+
+}
+
+.calendar__body {
+  width: 100%;
 }
 
 .create__btn {
@@ -54,22 +58,85 @@
   }
 }
 
-.timeline {
+.calendar__block-week {
+  display: flex;
+}
+
+.calendar__week {
+  width: 90%;
+}
+
+.calendar__timezone {
   width: 10%;
-  text-align: right;
-  padding-top: 50px;
+  color: #70757a;
+  font-size: 10px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
   padding-right: 30px;
-  &__timezone {
-    color: #70757a;
-    font-size: 10px;
+}
+
+.calendar__sector {
+  margin-top: 30px;
+  width: 90%;
+  display: flex;
+
+  &-column {
+    height: 100%;
+    text-align: center;
+    flex-grow: 1;
+    border-left: 1px solid #ccc;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: -20px;
+      left: -1px;
+      height: 20px;
+      width: 1px;
+      background-color: #ccc;
+    }
+
+    &:first-child {
+      .calendar__sector-line {
+        position: relative;
+        &::after {
+          content: '';
+          position: absolute;
+          top: -1px;
+          left: -20px;
+          height: 1px;
+          width: 20px;
+          background-color: #ccc;
+        }
+      }
+      
+    }
   }
 
+  &-line {
+    height: 60px;
+    border-top: 1px solid #ccc;
+    position: relative;
+
+  }
+}
+
+.calendar__timeline {
+  margin-top: 37px;
+  width: 10%;
+  padding-right: 30px;
+
   .time-of-day {
+    margin: 0;
     li {
       color: #70757a;
       font-size: 10px;
       height: 60px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
     }
   }
 }
-
