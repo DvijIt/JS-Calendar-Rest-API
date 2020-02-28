@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap&subset=cyrillic" rel="stylesheet">
+  <link rel="stylesheet" href="src/styles/style.css">
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <title>Calendar</title>
+</head>
+
+<body>
+  <div class="calendar">
+    <div class="calendar__header">
+      <button class="col s1 create__btn">
+        <div class="waves-effect waves-teal btn-flat create__btn">
+          <div class="create__btn-container"><svg width="36" height="36" viewBox="0 0 36 36">
+              <path fill="#34A853" d="M16 16v14h4V20z"></path>
+              <path fill="#4285F4" d="M30 16H20l-4 4h14z"></path>
+              <path fill="#FBBC05" d="M6 16v4h10l4-4z"></path>
+              <path fill="#EA4335" d="M20 16V6h-4v14z"></path>
+              <path fill="none" d="M0 0h36v36H0z"></path>
+            </svg>
+            <span>Создать</span></div>
+        </div>
+      </button>
+      <button class="col waves-effect waves-teal today">
+        Сегодня
+      </button>
+      <div class="col s2 date__navigation">
+        <span class="date__navigation-arrow arrow-left"><i class="material-icons">chevron_left</i></span>
+        <span class="date__navigation-arrow arrow-right"><i class="material-icons">chevron_right</i></span>
+      </div>
+      <div class="date__range">
+        <span class="date__month">Янв</span>
+      </div>
+    </div>
+    <div class="calendar__body">
+      <!-- Time Line -->
+      <div class="timeline">
+        <div class="timeline__timezone"></div>
+        <div class="timeline__block-time">
+          <ul class="time-of-day"></ul>
+        </div>
+      </div>
+      <!-- calendar grid -->
+      <div class="calendar__grid">
+        <div class="calendar__week">
+          <ul class="week__days">
+
+          </ul>
+          <ul class="week__days-number">
+
+          </ul>
+        </div>
+        <div class="calendar__sector">
+          <div class="sector">
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="src/scripts/index.js" type="module"></script>
+</body>
+
+</html>

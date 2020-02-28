@@ -1,0 +1,45 @@
+html {
+  font-family: 'Roboto', sans-serif;
+}
+ul {
+  list-style-type: none;
+}
+.calendar__sector {
+  
+  .sector {
+    display: flex;
+    &-column {
+      text-align: center;
+      flex-grow: 1;
+    }
+    &-line {
+      height: 60px;
+      border: 1px solid #ccc;
+    }
+  }
+}
+.week__days {
+  display: flex;
+  li {
+    flex-grow: 1;
+    text-align: center;
+  }
+}
+.week__days-number {
+  display: flex;
+  .week-day {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 24px;
+    width: 14%;
+    span {
+      padding: 16px;
+      border-radius: 50%;
+    }
+    .day-today {
+      color: #fff;
+      background-color:#1a73e8;
+    }
+  }
+}
+@import 'header';
