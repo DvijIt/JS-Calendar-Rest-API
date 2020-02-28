@@ -55,10 +55,10 @@ const targetBlock = e => {
   const line = e.target.getAttribute("data-sector-line");
   let data = `column - ${column} line - ${line}`;
 
-  let day = currentWeek[column].getAttribute("data-week-day");
-  let monthCur = month[currentWeek[column].getAttribute("data-week-month")];
-  let year = currentWeek[column].getAttribute("data-week-year");
-  if (monthCur == month[0] || monthCur == month[9] || monthCur == month[11]) {
+  let day = currentWeek[column - 1].getAttribute("data-week-day");
+  let monthCur = month[currentWeek[column -1].getAttribute("data-week-month")];
+  let year = currentWeek[column -1].getAttribute("data-week-year");
+  if (monthCur == month[0] || monthCur == month[7]|| monthCur == month[9] || monthCur == month[11]) {
     monthCur = monthCur.slice(0, 3);
   } else {
     monthCur = monthCur.slice(0, 4);
