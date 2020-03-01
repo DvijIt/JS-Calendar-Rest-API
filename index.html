@@ -5,12 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap&subset=cyrillic" rel="stylesheet">
-  <link rel="stylesheet" href="src/styles/style.css">
+  
   <!-- Compiled and minified CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" href="src/styles/materialize.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <!-- Compiled and minified JavaScript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <link rel="stylesheet" href="src/styles/style.css">
   <title>Calendar</title>
 </head>
 
@@ -18,17 +17,15 @@
   <div class="calendar">
     <div class="calendar__block-fixed">
       <div class="calendar__header">
-        <button class="col s1 create__btn modal-trigger" data-target="modal1">
-          <div class="waves-effect btn-flat create__btn">
-            <div class="create__btn-container"><svg width="36" height="36" viewBox="0 0 36 36">
-                <path fill="#34A853" d="M16 16v14h4V20z"></path>
-                <path fill="#4285F4" d="M30 16H20l-4 4h14z"></path>
-                <path fill="#FBBC05" d="M6 16v4h10l4-4z"></path>
-                <path fill="#EA4335" d="M20 16V6h-4v14z"></path>
-                <path fill="none" d="M0 0h36v36H0z"></path>
-              </svg>
-              <span>Создать</span></div>
-          </div>
+        <button class="create__event d-flex">
+          <svg width="36" height="36" viewBox="0 0 36 36">
+            <path fill="#34A853" d="M16 16v14h4V20z"></path>
+            <path fill="#4285F4" d="M30 16H20l-4 4h14z"></path>
+            <path fill="#FBBC05" d="M6 16v4h10l4-4z"></path>
+            <path fill="#EA4335" d="M20 16V6h-4v14z"></path>
+            <path fill="none" d="M0 0h36v36H0z"></path>
+          </svg>
+          <span>Создать</span>
         </button>
         <button class="col waves-effect today getToday">
           Сегодня
@@ -64,22 +61,35 @@
       <div class="modal-content">
         <form name="eventForm">
           <div class="input-field">
-            <input placeholder="Добавьте название" name="firstName" type="text" class="validate">
+            <input placeholder="Добавьте название" name="nameEvent" type="text" class="validate">
           </div>
           <div class="input-field d-flex">
             <i class="material-icons icon-time">access_time</i>
-            <input type="text" class="border-none" name="datepicker" class="datepicker">
+            <input type="text" class="border-none datepicker" name="datepicker">
+            <button class='dropdown-trigger btn-flat dateFrom' data-target='dateFrom'></button>
+            <span>-</span>
+            <button class='dropdown-trigger btn-flat dateTo' data-target='dateTo'></button>
           </div>
+          <input type="hidden" name="hiddenInput">
           <div class="input-field d-flex">
             <i class="material-icons icon-time">subject</i>
-            <textarea name="description" placeholder="Добавьте описание" class="materialize-textarea border-none"></textarea>
+            <textarea name="description" placeholder="Добавьте описание"
+              class="materialize-textarea border-none"></textarea>
           </div>
-          <button class="btn-flat material-icons">delete</button>
-          <button class="btn blue darken-2 waves-effect right" type="submit" name="eventForm">Сохранить</button>
+
+          <button class="btn-flat material-icons btn-delete-event">delete</button>
+          <button class="btn blue darken-2 waves-effect right save__event" type="submit" name="eventForm">Сохранить</button>
         </form>
       </div>
       <button class="modal-close btn-flat material-icons modal-close-btn">close</button>
     </div>
+ 
+    <ul id='dateFrom' class='dropdown-content'>
+    </ul>
+    <ul id='dateTo' class='dropdown-content'>
+    </ul>
+    <!-- Compiled and minified JavaScript -->
+    <script src="src/scripts/materialize.min.js"></script>
     <script src="src/scripts/index.js" type="module"></script>
 </body>
 

@@ -19,7 +19,6 @@ const month = [
 const dateMonth = document.querySelector(".date__month");
 const weekDays = ["ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ", "ВС"];
 const oneDay = 1000 * 60 * 60 * 24;
-const monthNow = month[new Date().getMonth()];
 
 const getMondey = () => {
   const from = new Date().getTime();
@@ -28,14 +27,13 @@ const getMondey = () => {
 };
 const mondey = getMondey();
 
-
 timezone.textContent = new Date()
   .toString()
   .split(" ")[5]
   .slice(0, 6);
 
 const renderBlockWeek = () => {
-  let next = 0;
+  let next = -7;
   let nextMondey = new Date(mondey.getTime() + oneDay * next);
 
   // render Week ПН-ВС
@@ -120,7 +118,6 @@ const renderBlockWeek = () => {
     const endMonth = newArr[1].month;
     const endYear = newArr[1].year;
 
-
     let correctDate = `${month[starMonth]} ${startYear} - ${month[endMonth]} ${endYear}`;
 
     if (starMonth === endMonth && startYear === endYear) {
@@ -133,14 +130,14 @@ const renderBlockWeek = () => {
   };
   getMonthContent();
 
-  const getToday =() => {
-    next = 0;
+  const getToday = () => {
+    next = -7;
     nextMondey = new Date(mondey.getTime() + oneDay * next);
 
     renderWeekDays();
     getMonthContent();
-  }
-  const btnToday = document.querySelector('.getToday');
+  };
+  const btnToday = document.querySelector(".getToday");
   const prevWeek = document.querySelector(".arrow-prev");
   const nextWeek = document.querySelector(".arrow-next");
 
@@ -159,7 +156,7 @@ const renderBlockWeek = () => {
     renderWeekDays();
     getMonthContent();
   };
-  btnToday.addEventListener('click', getToday);
+  btnToday.addEventListener("click", getToday);
   prevWeek.addEventListener("click", pullPrev);
   nextWeek.addEventListener("click", pullNext);
 };
