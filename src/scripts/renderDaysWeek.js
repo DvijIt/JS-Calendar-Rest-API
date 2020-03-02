@@ -33,7 +33,13 @@ timezone.textContent = new Date()
   .slice(0, 6);
 
 const renderBlockWeek = () => {
-  let next = -7;
+  let next = 0;
+  if (new Date().getDay() === 1) {
+    next = 0;
+  }
+  if (new Date().getDay() === 0) {
+    next = -7;
+  }
   let nextMondey = new Date(mondey.getTime() + oneDay * next);
 
   // render Week ПН-ВС
@@ -74,7 +80,7 @@ const renderBlockWeek = () => {
       .join("");
 
     sectorWeekDays.innerHTML = sectorWeek;
-
+    let count = new Date().getHours() * 60 + 105 + new Date().getMinutes();
     const todayDay = () => {
       const arrDays = [...document.querySelectorAll(".week-day")];
       arrDays.forEach(el => {
@@ -84,10 +90,27 @@ const renderBlockWeek = () => {
           el.getAttribute("data-week-year") == new Date().getFullYear()
         ) {
           el.firstElementChild.classList.add("day-today");
+          el.classList.add("get-today");
+          el.innerHTML = `<span class="day-today">${new Date().getDate()}</span><div class="line-today"></div>`;
         }
       });
     };
     todayDay();
+
+    const todayDayEl = document.querySelector(".line-today");
+    const showCurrentTime = () => {
+      todayDayEl.style.top = `${count}px`;
+      const countMinutesOfDay = () => {
+        setInterval(() => {
+          count += 1;
+          todayDayEl.style.top = `${count}px`;
+        }, 60000);
+      };
+      countMinutesOfDay();
+    };
+    if(todayDayEl) {
+      showCurrentTime();
+    }
   };
 
   renderWeek();
@@ -131,7 +154,12 @@ const renderBlockWeek = () => {
   getMonthContent();
 
   const getToday = () => {
-    next = -7;
+    if (new Date().getDay() === 1) {
+      next = 0;
+    }
+    if (new Date().getDay() === 0) {
+      next = -7;
+    }
     nextMondey = new Date(mondey.getTime() + oneDay * next);
 
     renderWeekDays();
