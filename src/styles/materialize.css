@@ -8840,6 +8840,7 @@ input[type=range]::-ms-thumb {
 /* Media Queries */
 @media only screen and (min-width: 601px) {
   .datepicker-modal {
+    width: 100%;
     max-width: 625px;
   }
   .datepicker-container.modal-content {
