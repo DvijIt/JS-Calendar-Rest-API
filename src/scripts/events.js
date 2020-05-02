@@ -1,4 +1,4 @@
-import { modal, month, generateNumberRange, events } from "./storage.js";
+import { modal, month, generateNumberRange } from "./storage.js";
 const createEventBtn = document.querySelector(".create__event");
 
 createEventBtn.addEventListener("click", function() {
@@ -10,7 +10,7 @@ createEventBtn.addEventListener("click", function() {
   const dropDateFrom = document.querySelector("#dateFrom");
   const dropDateTo = document.querySelector("#dateTo");
   datePicker.M_Datepicker.date = new Date();
-  let nowHour =
+  let getTimeFrom =
     new Date().getHours() < 10
       ? `0${new Date().getHours()}:00`
       : `${new Date().getHours()}:00`;
@@ -22,6 +22,8 @@ createEventBtn.addEventListener("click", function() {
     new Date().getHours() < 10
       ? `0${new Date().getHours() + 1}:00`
       : `${new Date().getHours() + 1}:00`;
+
+      
   let todayWithoutHour = new Date(
     new Date().getFullYear(),
     new Date().getMonth(),
@@ -46,7 +48,7 @@ createEventBtn.addEventListener("click", function() {
 
   const getRangeTimeDayTo = generateNumberRange(1, 24)
     .map(
-      el => `<li>${getRangeTimeDay[getRangeTimeDay.indexOf(nowHour) + el]}</li>`
+      el => `<li>${getRangeTimeDay[getRangeTimeDay.indexOf(getTimeFrom) + el]}</li>`
     )
     .filter(el => !el.includes("undefined"))
     .join("");
@@ -81,7 +83,7 @@ createEventBtn.addEventListener("click", function() {
   dropDateTo.addEventListener("click", selectTimeTo);
 
   datePicker.value = date;
-  inputTimeFrom.innerText = nowHour;
+  inputTimeFrom.innerText = getTimeFrom;
   inputTimeTo.innerText = hourTo;
   dropDateFrom.innerHTML = getRangeTimeFrom;
   dropDateTo.innerHTML = getRangeTimeDayTo;
