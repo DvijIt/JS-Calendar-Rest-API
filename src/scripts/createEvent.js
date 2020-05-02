@@ -44,20 +44,9 @@ const saveEvent = e => {
     eventTimeTo: inputTimeTo.innerText,
     timeLengthInMinutes: minutes
   });
+ 
   renderEvents();
-
-  let arr = []
-  events.forEach((event, index) => {
-    if (event.year === getYear && event.month === getNumberMonth && event.day === getDay) {
-      arr.push(event)
-    }
-  })
-  arr.sort((a,b) => a.id < b.id)
-  events.forEach((event, index) => {
-    if (event.id === arr[0].id) {
-      events.splice(index, 1)
-    }
-  })
+  
   modal.close();
   eventTitle.value = ''
   eventDescription.value = ''

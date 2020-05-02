@@ -9,15 +9,14 @@ const editEvent = e => {
   else {
     return false
   }
-  
-  let eventArr = events.filter(event => event.id == id)
-  let event = eventArr[0]
+
+  let event = events.find(event => event.id == id)
+
   const eventTitle = document.querySelector('input[name="nameEvent"]');
   const eventDescription = document.querySelector(
     'textarea[name="eventDescription"]'
   );
-  const dropDateFrom = document.querySelector("#dateFrom");
-  const dropDateTo = document.querySelector("#dateTo");
+
   const datePicker = document.querySelector('input[name="datepicker"]');
   const inputTimeFrom = document.querySelector('button[data-target="dateFrom"]');
   const inputTimeTo = document.querySelector('button[data-target="dateTo"]');
@@ -27,9 +26,6 @@ const editEvent = e => {
   inputTimeFrom.innerText = event.eventTimeFrom;
   inputTimeTo.innerText = event.eventTimeTo;
   datePicker.M_Datepicker.date = new Date(event.year, event.month, event.day)
-
-
-
   modal.open()
 }
 calendarSector.addEventListener('click', editEvent)
