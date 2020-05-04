@@ -224,6 +224,10 @@ ul {
   visibility: hidden;
 }
 
+.calendar {
+  height: 100vh;
+}
+
 .calendar__header {
   padding: 8px 16px;
   display: -webkit-box;
@@ -247,6 +251,7 @@ ul {
 
 .calendar__body {
   width: 100%;
+  overflow-y: scroll;
 }
 
 .create__event {
