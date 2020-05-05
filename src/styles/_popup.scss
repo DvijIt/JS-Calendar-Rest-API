@@ -1,0 +1,99 @@
+.dateFrom, .dateTo {
+  position: relative;
+  &:hover {
+    background-color: #f1f3f4;
+  }
+}
+.dropdown-content {
+  position: absolute;
+  top: 35px !important;
+  max-height: 150px;
+  
+  li {
+    min-height: 30px !important;
+    text-align: center;
+    padding: 4px;
+    
+  }
+}
+.date-form-item {
+  &:last-child {
+    display: none;
+  }
+}
+
+.week__days {
+  display: flex;
+
+  li {
+    flex-grow: 1;
+    text-align: center;
+  }
+}
+
+.week__days-number {
+  display: flex;
+
+  .week-day {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 24px;
+    width: 14%;
+
+    span {
+      display: flex;
+      margin: 0 auto;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #f1f3f4;
+      }
+    }
+
+    .day-today {
+      color: #fff;
+      background-color: #1a73e8;
+
+      &:hover {
+        background-color: #1a40e8;
+      }
+    }
+  }
+}
+
+.datepicker {
+  width: 30% !important;
+}
+.input-field {
+  margin-top: 50px !important;
+
+  .icon-time {
+    margin-right: 20px;
+  }
+}
+
+.border-none {
+  border-bottom: none !important;
+  margin: 0 !important;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+
+
+.btn-delete-event {
+  display: inline-block;
+  &.d-none {
+    display: none;
+  }
+}

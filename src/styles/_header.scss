@@ -16,10 +16,10 @@
     overflow-y: scroll;
     max-height: 80vh;
   }
+
   &__block-fixed {
     max-height: 20vh;
   }
-
 }
 
 .create__event {
@@ -55,48 +55,5 @@
   &__range {
     font-size: 20px;
     margin-left: 30px;
-  }
-}
-
-.calendar__block-week {
-  display: flex;
-}
-
-.calendar__week {
-  width: 90%;
-}
-
-.calendar__timezone {
-  width: 10%;
-  color: #70757a;
-  font-size: 10px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  padding-right: 30px;
-}
-
-
-.dateFrom, .dateTo {
-  position: relative;
-  &:hover {
-    background-color: #f1f3f4;
-  }
-}
-.dropdown-content {
-  position: absolute;
-  top: 35px !important;
-  max-height: 150px;
-  
-  li {
-    min-height: 30px !important;
-    text-align: center;
-    padding: 4px;
-    
-  }
-}
-.date-form-item {
-  &:last-child {
-    display: none;
   }
 }

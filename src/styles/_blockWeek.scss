@@ -1,0 +1,17 @@
+.calendar__block-week {
+  display: flex;
+}
+
+.calendar__week {
+  width: 90%;
+}
+
+.calendar__timezone {
+  width: 10%;
+  color: #70757a;
+  font-size: 10px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding-right: 30px;
+}
