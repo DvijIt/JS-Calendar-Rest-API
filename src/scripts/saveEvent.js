@@ -6,11 +6,20 @@ import {
 import {
   renderEvents
 } from "./renderEvents.js";
+import {editEvent} from './editEvent.js'
+
 
 const btnSaveEvent = document.querySelector(".save__event");
 
 const saveEvent = e => {
   e.preventDefault();
+
+  if (btnSaveEvent.classList.contains('editBtn')) {
+    editEvent()
+    // console.log('return');
+    return;
+  }
+
 
   const eventTitle = document.querySelector('input[name="nameEvent"]');
   const eventDescription = document.querySelector(
@@ -46,10 +55,12 @@ const saveEvent = e => {
   });
  
   renderEvents();
+  // console.log('save')
   
   modal.close();
   eventTitle.value = ''
   eventDescription.value = ''
 };
+
 
 btnSaveEvent.addEventListener("click", saveEvent);

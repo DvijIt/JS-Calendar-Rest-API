@@ -1,9 +1,13 @@
-import { events, month, modal, generateNumberRange } from "./storage.js";
-import { renderEvents } from "./renderEvents.js";
+import { month, modal, generateNumberRange } from "./storage.js";
+
+import {updateEvent} from './updateEvent.js'
 
 const calendarSector = document.querySelector('.calendar__sector');
-
+const btnSaveEvent = document.querySelector(".save__event");
+const btnRemoveEvent = document.querySelector(".btn-delete-event");
 const touchEvent = e => {
+
+  const touch = () => {
   const dropDateFrom = document.querySelector("#dateFrom");
   const dropDateTo = document.querySelector("#dateTo");
   const datePicker = document.querySelector('input[name="datepicker"]');
@@ -83,43 +87,21 @@ const touchEvent = e => {
   dropDateFrom.innerHTML = getRangeTimeFrom;
   dropDateTo.innerHTML = getRangeTimeDayTo;
   modal.open();
+  }
 
+  if (e.target.classList.contains('calendar__sector-line')) {
+    btnRemoveEvent.classList.add('d-none')
+    btnSaveEvent.classList.remove('editBtn');
+    // console.log('touchCreate')
+    touch()
+  }
+  else {
+    // console.log('edit')
+    updateEvent(e)
+    btnRemoveEvent.classList.remove('d-none')
+    btnSaveEvent.classList.add('editBtn');
+  }
 
 }
 calendarSector.addEventListener('click', touchEvent)
 
-// const btnSaveEvent = document.querySelector(".save__event");
-
-// const saveEvent = e => {
-//   e.preventDefault();
-
-//   const eventTitle = document.querySelector('input[name="nameEvent"]');
-//   const eventDescription = document.querySelector('textarea[name="eventDescription"]');
-//   const datePicker = document.querySelector('input[name="datepicker"]');
-//   const inputTimeFrom = document.querySelector('button[data-target="dateFrom"]');
-//   const inputTimeTo = document.querySelector('button[data-target="dateTo"]');
-//   let data = datePicker.M_Datepicker.date;
-//   const getYear = new Date(data).getFullYear();
-//   const getDay = new Date(data).getDate();
-//   const getMonth = month[new Date(data).getMonth()];
-//   const getNumberMonth = new Date(data).getMonth();
-//   let date = `${getDay} ${getMonth} ${getYear}`;
-//   let timeLengthInMinutes = ((+inputTimeTo.innerText.substr(0, 2) - +inputTimeFrom.innerText.substr(0, 2)) * 60 ) + (+inputTimeFrom.innerText.substr(3) + +inputTimeTo.innerText.substr(3));
- 
-//   events.push({
-//     id: new Date().getTime(),
-//     title: eventTitle.value,
-//     description: eventDescription.value,
-//     eventDate: date,
-//     day: getDay,
-//     month: getNumberMonth,
-//     year: getYear,
-//     eventTimeFrom: inputTimeFrom.innerText,
-//     eventTimeTo: inputTimeTo.innerText,
-//     timeLengthInMinutes: timeLengthInMinutes
-//   });
-//   renderEvents();
-//   modal.close();
-// };
-
-// btnSaveEvent.addEventListener("click", saveEvent);

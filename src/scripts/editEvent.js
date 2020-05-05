@@ -1,16 +1,16 @@
-import { events, modal, month, generateNumberRange } from "./storage.js";
-import { renderEvents } from "./renderEvents.js";
+import {
+  events,
+  modal,
+  month
+} from "./storage.js";
+import {
+  renderEvents
+} from "./renderEvents.js";
+import {
+  index
+} from './updateEvent.js'
 
-const calendarSector = document.querySelector('.calendar__sector');
-
-const editEvent = e => {
-  let id = null
-  if (e.target.closest('.event') !== null) {id = e.target.closest('.event').getAttribute('data-id')}
-  else {
-    return false
-  }
-
-  let event = events.find(event => event.id == id)
+export const editEvent = () => {
 
   const eventTitle = document.querySelector('input[name="nameEvent"]');
   const eventDescription = document.querySelector(
@@ -20,12 +20,27 @@ const editEvent = e => {
   const datePicker = document.querySelector('input[name="datepicker"]');
   const inputTimeFrom = document.querySelector('button[data-target="dateFrom"]');
   const inputTimeTo = document.querySelector('button[data-target="dateTo"]');
-  eventTitle.value = event.title
-  eventDescription.description = event.description
-  datePicker.value = event.eventDate;
-  inputTimeFrom.innerText = event.eventTimeFrom;
-  inputTimeTo.innerText = event.eventTimeTo;
-  datePicker.M_Datepicker.date = new Date(event.year, event.month, event.day)
-  modal.open()
+  let event = events[index]
+  let data = datePicker.M_Datepicker.date;
+  const getYear = new Date(data).getFullYear();
+  const getDay = new Date(data).getDate();
+  const getNumberMonth = new Date(data).getMonth();
+
+  let timeFromLength = new Date(getYear, getNumberMonth, getDay, +inputTimeFrom.innerText.substr(0, 2), +inputTimeFrom.innerText.substr(3)).getTime()
+  let timeToLength = new Date(getYear, getNumberMonth, getDay, +inputTimeTo.innerText.substr(0, 2), +inputTimeTo.innerText.substr(3)).getTime()
+  let minutes = (timeToLength - timeFromLength) / 60000;
+  // 
+  event.title = eventTitle.value;
+  event.description = eventDescription.value;
+  event.eventDate = datePicker.value;
+  event.eventTimeFrom = inputTimeFrom.innerText;
+  event.eventTimeTo = inputTimeTo.innerText;
+  event.eventDate = `${new Date(datePicker.M_Datepicker.date).getDate()} ${month[new Date(datePicker.M_Datepicker.date).getMonth()]} ${new Date(datePicker.M_Datepicker.date).getFullYear()}`
+  event.day = new Date(datePicker.M_Datepicker.date).getDate()
+  event.month = new Date(datePicker.M_Datepicker.date).getMonth()
+  event.year = new Date(datePicker.M_Datepicker.date).getFullYear()
+  event.timeLengthInMinutes = minutes
+  renderEvents()
+  modal.close()
+  // console.log(event)
 }
-calendarSector.addEventListener('click', editEvent)

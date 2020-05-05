@@ -119,7 +119,6 @@ ul {
   width: 100%;
   height: 2px;
   background-color: red;
-  top: 320px;
 
   &:after {
     content: '';
@@ -144,14 +143,13 @@ ul {
     height: 100%;
     text-align: center;
     flex-grow: 1;
-    border-left: 1px solid #ccc;
     position: relative;
 
     &::after {
       content: '';
       position: absolute;
       top: -20px;
-      left: -1px;
+      left: 0;
       height: 20px;
       width: 1px;
       background-color: #ccc;
@@ -179,9 +177,9 @@ ul {
   &-line {
     position: relative;
     height: 60px;
-    border-top: 1px solid #ccc;
-    position: relative;
-
+    border-color: #ccc;
+    border-style: solid;
+    border-width: 1px 0 0 1px;
   }
 }
 
@@ -207,6 +205,11 @@ ul {
   }
 }
 
-
+.btn-delete-event {
+  display: inline-block;
+  &.d-none {
+    display: none;
+  }
+}
 
 @import 'header';

@@ -3,12 +3,18 @@ import { modal, month, generateNumberRange, events } from "./storage.js";
 export const renderEvents = () => {
   // console.log(events);
   const weekDays = [...document.querySelectorAll(".calendar__sector-column")];
+  const weekDaysLine = [...document.querySelectorAll(".calendar__sector-line")];
   let days = [];
   weekDays.forEach(item => {
     days.push(
       item.getAttribute("data-set-day"))
   });
   const filteredEvents = [];
+
+  weekDaysLine.forEach(line => {
+    line.innerHTML = ''
+  })
+
   weekDays.forEach(el => {
     events.forEach((event, index) => {
       if (event.day == el.getAttribute("data-set-day") && event.month == el.getAttribute("data-set-month") && event.year == el.getAttribute("data-set-year")) {

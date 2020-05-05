@@ -6,7 +6,9 @@ import {
   monday,
   oneDay
 } from "./storage.js";
-import {renderEvents} from './renderEvents.js'
+import {
+  renderEvents
+} from './renderEvents.js'
 const dateMonth = document.querySelector(".date__month");
 const dayFullTime = document.querySelector(".time-of-day");
 const timezone = document.querySelector(".calendar__timezone");
@@ -37,12 +39,12 @@ const renderWeekDays = () => {
   const sectorWeek = getRangeOfWeek(nextMonday, 0, 6)
     .map(
       day =>
-        `<li class="week-day" data-week-year="${day.year}"year data-week-month="${day.month}" data-week-day="${day.day}"><span>${day.day}</span></li>`
+      `<li class="week-day" data-week-year="${day.year}" data-week-month="${day.month}" data-week-day="${day.day}"><span>${day.day}</span></li>`
     )
     .join("");
 
   sectorWeekDays.innerHTML = sectorWeek;
-  let count = new Date().getHours() * 60 + 105 + new Date().getMinutes();
+
   const todayDay = () => {
     const arrDays = [...document.querySelectorAll(".week-day")];
     arrDays.forEach(el => {
@@ -53,26 +55,12 @@ const renderWeekDays = () => {
       ) {
         el.firstElementChild.classList.add("day-today");
         el.classList.add("get-today");
-        el.innerHTML = `<span class="day-today">${new Date().getDate()}</span><div class="line-today"></div>`;
+        el.innerHTML = `<span class="day-today">${new Date().getDate()}</span>`;
       }
     });
   };
   todayDay();
 
-  const todayDayEl = document.querySelector(".line-today");
-  const showCurrentTime = () => {
-    todayDayEl.style.top = `${count}px`;
-    const countMinutesOfDay = () => {
-      setInterval(() => {
-        count += 1;
-        todayDayEl.style.top = `${count}px`;
-      }, 60000);
-    };
-    countMinutesOfDay();
-  };
-  if (todayDayEl) {
-    showCurrentTime();
-  }
 };
 
 // show month from week shown
@@ -86,8 +74,7 @@ const getMonthContent = () => {
       year: el.getAttribute("data-week-year")
     });
   });
-  const newArr = [
-    {
+  const newArr = [{
       month: arrMonth[0].month,
       year: arrMonth[0].year
     },
@@ -133,27 +120,47 @@ const renderTimeLine = () => {
 renderTimeLine();
 const time = [...document.querySelectorAll('.hour-of-time')].map(el => el.getAttribute('data-time'));
 
-// console.log(time)
-
 // render Calendar Sector days and hours
 const renderCalendarSector = () => {
   const renderDayTime = () =>
     generateNumberRange(0, 23)
-      .map(
-        line =>
-          `<div class="calendar__sector-line" data-sector-line="${line}" data-set-hour="${time[line]}"></div>`
-      )
-      .join("");
-      // !!!!!!!!!!!!!!!!!!
-    const sectorColumn = getRangeOfWeek(nextMonday, 0, 6)
     .map(
-      column =>
-        `<div class="calendar__sector-column" data-set-year="${column.year}"year data-set-month="${column.month}" data-set-day="${column.day}">${renderDayTime()}</div>`
+      line =>
+      `<div class="calendar__sector-line" data-sector-line="${line}" data-set-hour="${time[line]}"></div>`
     )
     .join("");
-    
+  // !!!!!!!!!!!!!!!!!!
+  const sectorColumn = getRangeOfWeek(nextMonday, 0, 6)
+    .map(
+      column =>
+      `<div class="calendar__sector-column" data-set-year="${column.year}"year data-set-month="${column.month}" data-set-day="${column.day}">${renderDayTime()}</div>`
+    )
+    .join("");
 
   sectorDays.innerHTML = sectorColumn;
+  let currentColumnDay = null
+  if (document.querySelector(`.calendar__sector-column[data-set-year="${new Date().getFullYear()}"][data-set-month="${new Date().getMonth()}"][data-set-day="${new Date().getDate()}"]`)) {
+    currentColumnDay = document.querySelector(`.calendar__sector-column[data-set-year="${new Date().getFullYear()}"][data-set-month="${new Date().getMonth()}"][data-set-day="${new Date().getDate()}"]`)
+    let divLine = document.createElement('div')
+    divLine.classList.add('line-today')
+    currentColumnDay.appendChild(divLine)
+  }
+  let count = new Date().getHours() * 60 + new Date().getMinutes();
+
+  const todayDayEl = document.querySelector(".line-today");
+  const showCurrentTime = () => {
+    todayDayEl.style.top = `${count}px`;
+    const countMinutesOfDay = () => {
+      setInterval(() => {
+        todayDayEl.style.top = `${count}px`;
+        count += 1
+      }, 60000);
+    };
+    countMinutesOfDay();
+  };
+  if (todayDayEl) {
+    showCurrentTime();
+  }
 };
 
 renderWeek();
