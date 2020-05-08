@@ -40,11 +40,21 @@ export const getRangeOfWeek = (date, from, to) => {
 export const oneDay = 1000 * 60 * 60 * 24;
 
 const getMonday = () => {
+  
   // милисекунд сейчас
   let now = new Date().getTime();
   // милисекунд от вс до текущего дня недели
   let to = new Date().getDay() * oneDay;
-  return new Date(now - to + oneDay);
+  if (new Date().getDay() !== 0) {
+
+    console.log(new Date().getDay())
+    return new Date(now - to + oneDay);
+  }
+  console.log(new Date().getDay())
+  return new Date(now - oneDay * 6)
+  
+  
+  
 };
 
 export let monday = getMonday();
