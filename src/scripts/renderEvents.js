@@ -1,7 +1,9 @@
-import { modal, month, generateNumberRange, events } from "./storage.js";
+import { modal, month, generateNumberRange, getItem, setItem } from "./storage.js";
 
 export const renderEvents = () => {
-  // console.log(events);
+
+  const events = getItem('events') || []
+
   const weekDays = [...document.querySelectorAll(".calendar__sector-column")];
   const weekDaysLine = [...document.querySelectorAll(".calendar__sector-line")];
   let days = [];

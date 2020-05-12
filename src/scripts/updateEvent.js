@@ -1,5 +1,5 @@
 import {
-  events,
+  getItem,
   modal,
   month
 } from "./storage.js";
@@ -10,7 +10,7 @@ import {
 
 export let index = null
 export const updateEvent = (e) => {
-
+  const events = getItem('events') || [];
   if (e.target.closest('.event') !== null) {
     index = e.target.closest('.event').getAttribute('data-index');
   } else {

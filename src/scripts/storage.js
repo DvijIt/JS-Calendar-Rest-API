@@ -61,33 +61,40 @@ export let dropdown = M.Dropdown.init(elems);
 export let datePicker = M.Datepicker.init(elemPicker, {
   format: "dd mmm yyyy"
 });
-export let events = [
-  {
-    day: 2,
-    description: "description",
-    eventDate: "2 Май 2020",
-    eventTimeFrom: "10:30",
-    eventTimeTo: "12:00",
-    timeFromMilisec: 1588400035252,
-    timeEndMilisec: 1588410000000,
-    id: 1585129476672,
-    month: 4,
-    title: "Title",
-    year: 2020,
-    timeLengthInMinutes: 90
-  },
-  {
-    day: 15,
-    description: "description",
-    eventDate: "15 Апрель 2020",
-    eventTimeFrom: "11:15",
-    eventTimeTo: "12:45",
-    id: 1585129618022,
-    month: 3,
-    title: "Title",
-    year: 2020,
-    timeLengthInMinutes: 90
-  },
+// export let events = [
+//   {
+//     day: 2,
+//     description: "description",
+//     eventDate: "2 Май 2020",
+//     eventTimeFrom: "10:30",
+//     eventTimeTo: "12:00",
+//     timeFromMilisec: 1588400035252,
+//     timeEndMilisec: 1588410000000,
+//     id: 1585129476672,
+//     month: 4,
+//     title: "Title",
+//     year: 2020,
+//     timeLengthInMinutes: 90
+//   },
+//   {
+//     day: 15,
+//     description: "description",
+//     eventDate: "15 Апрель 2020",
+//     eventTimeFrom: "11:15",
+//     eventTimeTo: "12:45",
+//     id: 1585129618022,
+//     month: 3,
+//     title: "Title",
+//     year: 2020,
+//     timeLengthInMinutes: 90
+//   },
 
-];
-// export {generateNumberRange, month, weekDays, getRangeOfWeek, monday, oneDay};
+// ];
+
+export const setItem = (key, value) => {
+  localStorage.setItem(key, JSON.stringify(value));
+};
+
+export const getItem = key => JSON.parse(localStorage.getItem(key));
+
+

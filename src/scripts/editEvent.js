@@ -1,5 +1,6 @@
 import {
-  events,
+  getItem,
+  setItem,
   modal,
   month
 } from "./storage.js";
@@ -11,7 +12,7 @@ import {
 } from './updateEvent.js'
 
 export const editEvent = () => {
-
+  const events = getItem('events') || [];
   const eventTitle = document.querySelector('input[name="nameEvent"]');
   const eventDescription = document.querySelector(
     'textarea[name="eventDescription"]'
@@ -30,16 +31,23 @@ export const editEvent = () => {
   let timeToLength = new Date(getYear, getNumberMonth, getDay, +inputTimeTo.innerText.substr(0, 2), +inputTimeTo.innerText.substr(3)).getTime()
   let minutes = (timeToLength - timeFromLength) / 60000;
   // 
-  event.title = eventTitle.value;
-  event.description = eventDescription.value;
-  event.eventDate = datePicker.value;
-  event.eventTimeFrom = inputTimeFrom.innerText;
-  event.eventTimeTo = inputTimeTo.innerText;
-  event.eventDate = `${new Date(datePicker.M_Datepicker.date).getDate()} ${month[new Date(datePicker.M_Datepicker.date).getMonth()]} ${new Date(datePicker.M_Datepicker.date).getFullYear()}`
-  event.day = new Date(datePicker.M_Datepicker.date).getDate()
-  event.month = new Date(datePicker.M_Datepicker.date).getMonth()
-  event.year = new Date(datePicker.M_Datepicker.date).getFullYear()
-  event.timeLengthInMinutes = minutes
+
+  events.map(item => {
+    if ( item.id === event.id ) {
+      event.title = eventTitle.value;
+      event.description = eventDescription.value;
+      event.eventDate = datePicker.value;
+      event.eventTimeFrom = inputTimeFrom.innerText;
+      event.eventTimeTo = inputTimeTo.innerText;
+      event.eventDate = `${new Date(datePicker.M_Datepicker.date).getDate()} ${month[new Date(datePicker.M_Datepicker.date).getMonth()]} ${new Date(datePicker.M_Datepicker.date).getFullYear()}`
+      event.day = new Date(datePicker.M_Datepicker.date).getDate()
+      event.month = new Date(datePicker.M_Datepicker.date).getMonth()
+      event.year = new Date(datePicker.M_Datepicker.date).getFullYear()
+      event.timeLengthInMinutes = minutes
+    }
+  })
+
+  setItem('events', events)
   renderEvents()
   modal.close()
   // console.log(event)

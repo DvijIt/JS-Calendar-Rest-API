@@ -1,5 +1,6 @@
 import {
-  events,
+  getItem,
+  setItem,
   month,
   modal
 } from "./storage.js";
@@ -10,16 +11,14 @@ import {editEvent} from './editEvent.js'
 
 
 const btnSaveEvent = document.querySelector(".save__event");
+const events = getItem('events') || []
 
 const saveEvent = e => {
   e.preventDefault();
-
   if (btnSaveEvent.classList.contains('editBtn')) {
     editEvent()
-    // console.log('return');
     return;
   }
-
 
   const eventTitle = document.querySelector('input[name="nameEvent"]');
   const eventDescription = document.querySelector(
@@ -41,6 +40,7 @@ const saveEvent = e => {
   let timeToLength = new Date(getYear, getNumberMonth, getDay, +inputTimeTo.innerText.substr(0, 2), +inputTimeTo.innerText.substr(3)).getTime()
   let minutes = (timeToLength - timeFromLength) / 60000;
 
+  
   events.push({
     id: new Date().getTime(),
     title: eventTitle.value,
@@ -53,7 +53,7 @@ const saveEvent = e => {
     eventTimeTo: inputTimeTo.innerText,
     timeLengthInMinutes: minutes
   });
- 
+  setItem('events', events)
   renderEvents();
   // console.log('save')
   
