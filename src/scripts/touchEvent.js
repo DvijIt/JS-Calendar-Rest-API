@@ -18,20 +18,20 @@ const touchEvent = e => {
   const getMonth = e.target.parentNode.getAttribute('data-set-month')
   const getYear = e.target.parentNode.getAttribute('data-set-year')
   const getTimeFrom = e.target.getAttribute('data-set-hour')
-  let getTimeTo = ''
-  if (e.target.nextElementSibling !== null) getTimeTo = e.target.nextElementSibling.getAttribute('data-set-hour')
+  let getTimeTo = e.target.nextElementSibling.getAttribute('data-set-hour')
   
   const nowMonth = month[getMonth]
   datePicker.M_Datepicker.date = new Date(getYear, getMonth, getDay);
   let date = `${getDay} ${nowMonth} ${getYear}`;
 
-  let todayWithoutHour = new Date(
-    new Date().getFullYear(),
-    new Date().getMonth(),
-    new Date().getDate()
-  ).getTime();
+
   //  generete MaxTimeEnd array
   const generateDateTimeRange = (array, from, to) => {
+    let todayWithoutHour = new Date(
+      new Date().getFullYear(),
+      new Date().getMonth(),
+      new Date().getDate()
+    ).getTime();
     for (let i = from; i <= to; i++) {
       let hours = new Date(todayWithoutHour).getHours();
       let minutes = new Date(todayWithoutHour).getMinutes();

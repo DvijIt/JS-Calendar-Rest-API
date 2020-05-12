@@ -11,10 +11,13 @@ import {editEvent} from './editEvent.js'
 
 
 const btnSaveEvent = document.querySelector(".save__event");
-const events = getItem('events') || []
+
 
 const saveEvent = e => {
   e.preventDefault();
+  
+  const events = getItem('events') || []
+
   if (btnSaveEvent.classList.contains('editBtn')) {
     editEvent()
     return;
