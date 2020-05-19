@@ -1,18 +1,17 @@
-import {
-  getItem,
-  modal,
-  generateNumberRange
-} from "./storage.js";
+import { getItem, modal, generateNumberRange } from "./storage.js";
 
 export let index = null
+export let eventId = null
+
 export const updateEvent = (e) => {
-  const events = getItem('events') || [];
+  const events = getItem('tasksList') || [];
   if (e.target.closest('.event') !== null) {
     index = e.target.closest('.event').getAttribute('data-index');
+    eventId = e.target.closest('.event').dataset.id;
   } else {
     return false
   }
-  let event = events[index]
+  let event = events.find(event => event.id === eventId)
   const eventTitle = document.querySelector('input[name="nameEvent"]');
   const eventDescription = document.querySelector(
     'textarea[name="eventDescription"]'

@@ -1,6 +1,8 @@
 import { modal, month, generateNumberRange } from "./storage.js";
 const createEventBtn = document.querySelector(".create__event");
 const btnSaveEvent = document.querySelector(".save__event");
+
+
 createEventBtn.addEventListener("click", function() {
   btnSaveEvent.classList.remove('editBtn');
   const datePicker = document.querySelector('input[name="datepicker"]');

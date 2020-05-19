@@ -5,13 +5,20 @@ import {renderEvents} from "./renderEvents.js";
 import {} from "./touchEvent.js";
 import {} from "./deleteEvent.js";
 import {} from "./updateEvent.js";
+import {getEventsList} from "./eventsGateway.js";
+import { setItem } from "./storage.js";
 
-document.addEventListener("DOMContentLoaded", function () {
-  renderEvents()
+document.addEventListener("DOMContentLoaded", () => {
+  getEventsList()
+    .then(eventsList => {
+      setItem('tasksList', eventsList);
+      renderEvents();
+    })
+  
 });
 
 const onStorageChange = e => {
-  if (e.key === 'events') {
+  if (e.key === 'tasksList') {
       renderEvents();
   }
 };

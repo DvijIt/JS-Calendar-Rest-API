@@ -1,13 +1,7 @@
-import {
-  getItem,
-  setItem,
-  month,
-  modal
-} from "./storage.js";
-import {
-  renderEvents
-} from "./renderEvents.js";
-import {editEvent} from './editEvent.js'
+import { getItem, setItem, month, modal } from "./storage.js";
+import { renderEvents } from "./renderEvents.js";
+import { editEvent } from './editEvent.js';
+import { getEventsList, createEvent } from './eventsGateway.js'
 
 
 const btnSaveEvent = document.querySelector(".save__event");
@@ -16,7 +10,7 @@ const btnSaveEvent = document.querySelector(".save__event");
 const saveEvent = e => {
   e.preventDefault();
   
-  const events = getItem('events') || []
+  const events = getItem('tasksList') || []
 
   if (btnSaveEvent.classList.contains('editBtn')) {
     editEvent()
@@ -43,9 +37,7 @@ const saveEvent = e => {
   let timeToLength = new Date(getYear, getNumberMonth, getDay, +inputTimeTo.innerText.substr(0, 2), +inputTimeTo.innerText.substr(3)).getTime()
   let minutes = (timeToLength - timeFromLength) / 60000;
 
-  
-  events.push({
-    id: new Date().getTime(),
+  const newEvent = {
     title: eventTitle.value,
     description: eventDescription.value,
     eventDate: date,
@@ -55,14 +47,20 @@ const saveEvent = e => {
     eventTimeFrom: inputTimeFrom.innerText,
     eventTimeTo: inputTimeTo.innerText,
     timeLengthInMinutes: minutes
-  });
-  setItem('events', events)
-  renderEvents();
-  // console.log('save')
+  }
+
+
+  createEvent(newEvent)
+    .then(() => getEventsList())
+    .then(newTasksList => {
+      setItem('tasksList', newTasksList);
+      renderEvents();
+      modal.close();
+      eventTitle.value = ''
+      eventDescription.value = ''
+    });
   
-  modal.close();
-  eventTitle.value = ''
-  eventDescription.value = ''
+
 };
 
 
