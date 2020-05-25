@@ -93,7 +93,7 @@
 
 .btn-delete-event {
   display: inline-block;
-  &.d-none {
-    display: none;
-  }
+}
+[data-type=disable] {
+  display: none;
 }

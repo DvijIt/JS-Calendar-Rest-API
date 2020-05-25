@@ -345,7 +345,7 @@ ul {
   display: inline-block;
 }
 
-.btn-delete-event.d-none {
+[data-type=disable] {
   display: none;
 }
 /*# sourceMappingURL=style.css.map */

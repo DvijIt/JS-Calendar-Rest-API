@@ -1,107 +1,105 @@
-import { month, modal, generateNumberRange } from "./storage.js";
-
-import {updateEvent} from './updateEvent.js'
+import { getDataEvent } from './getDataEvent.js'
+import { getEventsList} from './eventsGateway.js'
 
 const calendarSector = document.querySelector('.calendar__sector');
 const btnSaveEvent = document.querySelector(".save__event");
 const btnRemoveEvent = document.querySelector(".btn-delete-event");
-const touchEvent = e => {
+const createEventBtn = document.querySelector(".create__event");
 
-  const touch = () => {
-  const dropDateFrom = document.querySelector("#dateFrom");
-  const dropDateTo = document.querySelector("#dateTo");
-  const datePicker = document.querySelector('input[name="datepicker"]');
-  const inputTimeFrom = document.querySelector('button[data-target="dateFrom"]');
-  const inputTimeTo = document.querySelector('button[data-target="dateTo"]');
+const eventTitle = document.querySelector('input[name="nameEvent"]');
+const eventDescription = document.querySelector('textarea[name="eventDescription"]');
 
-  const getDay = e.target.parentNode.getAttribute('data-set-day')
-  const getMonth = e.target.parentNode.getAttribute('data-set-month')
-  const getYear = e.target.parentNode.getAttribute('data-set-year')
-  const getTimeFrom = e.target.getAttribute('data-set-hour')
-  let getTimeTo = e.target.nextElementSibling.getAttribute('data-set-hour')
+export let getEventId = 0;
+
+const createNewEvent = e => {
+  btnSaveEvent.setAttribute('data-type', 'save');
+  btnRemoveEvent.setAttribute('data-type', 'disable');
+  const getDay = e.target.parentNode.dataset.setDay
+  const getMonth = e.target.parentNode.dataset.setMonth
+  const getYear = e.target.parentNode.dataset.setYear
+  const getTimeFrom = e.target.dataset.setHour
+  const getTimeTo = e.target.nextElementSibling.dataset.setHour;
   
-  const nowMonth = month[getMonth]
-  datePicker.M_Datepicker.date = new Date(getYear, getMonth, getDay);
-  let date = `${getDay} ${nowMonth} ${getYear}`;
-
-
-  //  generete MaxTimeEnd array
-  const generateDateTimeRange = (array, from, to) => {
-    let todayWithoutHour = new Date(
-      new Date().getFullYear(),
-      new Date().getMonth(),
-      new Date().getDate()
-    ).getTime();
-    for (let i = from; i <= to; i++) {
-      let hours = new Date(todayWithoutHour).getHours();
-      let minutes = new Date(todayWithoutHour).getMinutes();
-      if (hours < 10) hours = `0${hours}`;
-      if (minutes < 1) minutes = `${minutes}0`;
-      array.push(`${hours}:${minutes}`);
-      todayWithoutHour += 60000 * 15;
-    }
-  };
-
-  const getRangeTimeDay = [];
-
-  generateDateTimeRange(getRangeTimeDay, 0, 96);
-
-  const getRangeTimeDayTo = generateNumberRange(1, 24)
-    .map(
-      el => `<li>${getRangeTimeDay[getRangeTimeDay.indexOf(getTimeFrom) + el]}</li>`
-    )
-    .filter(el => !el.includes("undefined"))
-    .join("");
-
-  const getRangeTimeFrom = generateNumberRange(0, 97)
-    .map(el => `<li class="date-form-item">${getRangeTimeDay[el]}</li>`)
-    .join("");
-
-  const selectTimeFrom = e => {
-    const timeFrom = e.target.innerHTML;
-    const timeTo = e.target.nextElementSibling.innerHTML;
-    inputTimeFrom.textContent = timeFrom;
-    inputTimeTo.textContent = timeTo;
-    const getRangeTimeDayTo = generateNumberRange(1, 24)
-      .map(
-        el => `
-        <li>${getRangeTimeDay[getRangeTimeDay.indexOf(timeFrom) + el]}</li>
-      `
-      )
-      .filter(el => !el.includes("undefined"))
-      .join("");
-
-    dropDateTo.innerHTML = getRangeTimeDayTo;
-  };
-
-  const selectTimeTo = e => {
-    const timeTo = e.target.innerHTML;
-    inputTimeTo.textContent = timeTo;
-  };
-  
-  dropDateFrom.addEventListener("click", selectTimeFrom);
-  dropDateTo.addEventListener("click", selectTimeTo);
-  datePicker.value = date;
-  inputTimeFrom.innerText = getTimeFrom;
-  inputTimeTo.innerText = getTimeTo;
-  dropDateFrom.innerHTML = getRangeTimeFrom;
-  dropDateTo.innerHTML = getRangeTimeDayTo;
-  modal.open();
+  const data = {
+    getDay,
+    getMonth,
+    getYear,
+    getTimeFrom,
+    getTimeTo
   }
 
-  if (e.target.classList.contains('calendar__sector-line')) {
-    btnRemoveEvent.classList.add('d-none')
-    btnSaveEvent.classList.remove('editBtn');
-    // console.log('touchCreate')
-    touch()
-  }
-  else {
-    // console.log('edit')
-    updateEvent(e)
-    btnRemoveEvent.classList.remove('d-none')
-    btnSaveEvent.classList.add('editBtn');
-  }
+  getDataEvent(data);
 
+  eventTitle.value = ''
+  eventDescription.value = ''
 }
-calendarSector.addEventListener('click', touchEvent)
 
+const getDataUdateEvent = async e => {
+  btnSaveEvent.setAttribute('data-type', 'edit');
+  btnRemoveEvent.removeAttribute('data-type', 'disable');
+
+  const $target = e.target.closest('[data-type="event"]')
+  const eventId = $target.dataset.id;
+  const events = await getEventsList()
+  const event = events.find(event => event.id === eventId);
+  
+  const getDay = event.day;
+  const getMonth = event.month;
+  const getYear = event.year;
+  const getTimeFrom = event.eventTimeFrom;
+  const getTimeTo = event.eventTimeTo;
+  
+  const data = {
+    getDay,
+    getMonth,
+    getYear,
+    getTimeFrom,
+    getTimeTo
+  }
+  getDataEvent(data);
+  eventTitle.value = event.title;
+  eventDescription.value = event.description;
+
+  getEventId = eventId;
+}
+
+const getTypeEvent = e => {
+  if (e.target.dataset.type === 'sell') {
+    createNewEvent(e)
+    return;
+  }
+  if (e.target.closest('[data-type="event"]').dataset.type === 'event') {
+    getDataUdateEvent(e);
+    return;
+  }
+}
+
+const createDataNewEventFromeHaderButton = () => {
+  btnSaveEvent.setAttribute('data-type', 'save');
+  btnRemoveEvent.setAttribute('data-type', 'disable');
+  const getDay = new Date().getDate();
+  const getMonth = new Date().getMonth();
+  const getYear = new Date().getFullYear();
+  const getTimeFrom =
+  new Date().getHours() < 10
+    ? `0${new Date().getHours()}:00`
+    : `${new Date().getHours()}:00`;
+
+  const getTimeTo =
+    new Date().getHours() < 10
+      ? `0${new Date().getHours() + 1}:00`
+      : `${new Date().getHours() + 1}:00`;
+
+  const data = {
+    getDay,
+    getMonth,
+    getYear,
+    getTimeFrom,
+    getTimeTo
+  }
+
+  getDataEvent(data);
+}
+calendarSector.addEventListener('click', getTypeEvent)
+
+createEventBtn.addEventListener('click', createDataNewEventFromeHaderButton)

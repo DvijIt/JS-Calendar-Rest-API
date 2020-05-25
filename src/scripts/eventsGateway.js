@@ -1,27 +1,27 @@
 const baseUrl = 'https://5ec377e28ebdcc0016a5a8e4.mockapi.io/api/v1/events'
 
-export const getEventsList = () => {
-  return fetch(baseUrl)
-    .then(responce => responce.json())
+export const getEventsList = async () => {
+  const responce = await fetch(baseUrl)
+  const eventsList = await responce.json()
+
+  return eventsList
 }
 
-export const createEvent = eventData => {
-  return fetch(baseUrl, {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify(eventData)
-    }).then(response => {
-      if (response.ok) {
-        return response.json()
-      } else {
-        throw new Error('Loading data failed')
-      }
-    })
-    .catch(err => {
-      alert(err)
-    });
+export const createEvent = async eventData => {
+
+  const createEventData = await fetch(baseUrl, {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json;charset=utf-8'
+    },
+    body: JSON.stringify(eventData)
+  })
+
+  if (createEventData.ok) {
+    return createEventData.json()
+  } 
+  throw new Error('Loading data failed')
+
 }
 
 export const updateEventData = (eventId, updatedEventData) => {
@@ -43,17 +43,13 @@ export const updateEventData = (eventId, updatedEventData) => {
     });
 }
 
-export const deleteEvent = eventId => {
-  return fetch(`${baseUrl}/${eventId}`, {
-      method: 'DELETE',
-    }).then(response => {
-      if (response.ok) {
-        return response.json()
-      } else {
-        throw new Error('Loading data for delete failed')
-      }
-    })
-    .catch(err => {
-      alert(err)
-    });
+export const deleteEvent = async eventId => {
+  const deleteEventData = await fetch(`${baseUrl}/${eventId}`, {
+    method: 'DELETE',
+  })
+  if (deleteEventData.status === 200) {
+    return await deleteEventData.json()
+  }
+  throw new Error('Failed to load data');
+
 }
