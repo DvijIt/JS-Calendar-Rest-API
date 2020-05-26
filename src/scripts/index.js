@@ -6,5 +6,3 @@ import {} from "./deleteEvent.js";
 import {renderCalendar} from "./renderCalendar.js";
 
 document.addEventListener('DOMContentLoaded', renderCalendar)
-
-

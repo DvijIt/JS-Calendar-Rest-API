@@ -1,0 +1,32 @@
+{
+  "name": "calendar",
+  "version": "1.0.0",
+  "description": "calendar with rest-api",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "build:styles": "sass ./src/styles/style.scss ./dist/styles.css",
+    "copy:html": "cp ./src/index.html ./dist/index.html",
+    "copy:scripts": "cp -R ./src/scripts ./dist/scripts",
+    "copy:libs": "cp -R ./src/libs ./dist/libs",
+    "clean": "rm -rf ./dist",
+    "build": "npm-run-all clean build:styles copy:*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DvijIt/JS-Calendar-Rest-API.git"
+  },
+  "author": "dvij",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DvijIt/JS-Calendar-Rest-API/issues"
+  },
+  "homepage": "https://github.com/DvijIt/JS-Calendar-Rest-API#readme",
+  "devDependencies": {
+    "@babel/preset-env": "^7.9.6",
+    "jest": "^26.0.1",
+    "npm-run-all": "^4.1.5",
+    "sass": "^1.26.5"
+  }
+}
