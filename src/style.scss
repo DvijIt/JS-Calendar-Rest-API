@@ -20,8 +20,8 @@ ul {
   position: relative;
 }
 
-@import 'header';
-@import 'blockWeek.scss';
-@import 'sectorEvents';
-@import 'event';
-@import 'popup';
+@import 'styles/header';
+@import 'styles/blockWeek.scss';
+@import 'styles/sectorEvents';
+@import 'styles/event';
+@import 'styles/popup';
