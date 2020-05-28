@@ -4,10 +4,8 @@
   "description": "calendar with rest-api",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch",
     "build": "webpack -p",
-    "watch": "webpack -d --devtools eval-source-map -w"
+    "start": "webpack-dev-server -d --devtools eval-source-map --open"
   },
   "repository": {
     "type": "git",
@@ -39,7 +37,8 @@
     "style-loader": "^1.2.1",
     "url-loader": "^4.1.0",
     "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
     "core-js": "^3.6.5"
