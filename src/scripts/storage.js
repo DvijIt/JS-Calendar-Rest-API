@@ -1,3 +1,5 @@
+import './materialize.js'
+
 export const generateNumberRange = (from, to) => {
   const result = [];
   for (let i = from; i <= to; i++) {
