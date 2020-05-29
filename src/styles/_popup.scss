@@ -87,12 +87,14 @@
   position: absolute;
   top: 0;
   right: 0;
+  text-transform: lowercase;
 }
 
 
 
 .btn-delete-event {
   display: inline-block;
+  text-transform: lowercase;
 }
 [data-type=disable] {
   display: none;
