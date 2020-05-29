@@ -1,4 +1,4 @@
-import './materialize.js'
+import '../lib/materialize.js';
 
 export const generateNumberRange = (from, to) => {
   const result = [];
@@ -9,21 +9,21 @@ export const generateNumberRange = (from, to) => {
 };
 
 export const month = [
-  "Январь",
-  "Февраль",
-  "Март",
-  "Апрель",
-  "Май",
-  "Июнь",
-  "Июль",
-  "Август",
-  "Сентябрь",
-  "Октябрь",
-  "Ноябрь",
-  "Декабрь"
+  'Январь',
+  'Февраль',
+  'Март',
+  'Апрель',
+  'Май',
+  'Июнь',
+  'Июль',
+  'Август',
+  'Сентябрь',
+  'Октябрь',
+  'Ноябрь',
+  'Декабрь',
 ];
 
-export const weekDays = ["ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ", "ВС"];
+export const weekDays = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'];
 
 // render Week Days Number ПН-ВС
 export const getRangeOfWeek = (date, from, to) => {
@@ -33,18 +33,19 @@ export const getRangeOfWeek = (date, from, to) => {
     arrObj.push({
       year: new Date(new Date(date).setDate(day + i)).getFullYear(),
       month: new Date(new Date(date).setDate(day + i)).getMonth(),
-      day: new Date(new Date(date).setDate(day + i)).getDate()
+      day: new Date(new Date(date).setDate(day + i)).getDate(),
     });
   }
   return arrObj;
 };
 
-let eventModal = document.querySelector(".event-modal");
+const eventModal = document.querySelector('.event-modal');
 
-let elems = document.querySelectorAll(".dropdown-trigger");
-let elemPicker = document.querySelector(".datepicker");
-export let modal = M.Modal.init(eventModal);
-export let dropdown = M.Dropdown.init(elems);
-export let datePicker = M.Datepicker.init(elemPicker, {
-  format: "dd mmm yyyy"
+const elems = document.querySelectorAll('.dropdown-trigger');
+const elemPicker = document.querySelector('.datepicker');
+// eslint-disable
+export const modal = M.Modal.init(eventModal);
+export const dropdown = M.Dropdown.init(elems);
+export const datePicker = M.Datepicker.init(elemPicker, {
+  format: 'dd mmm yyyy',
 });

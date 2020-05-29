@@ -1,13 +1,12 @@
 
-const filteredEventsList = (eventsList, {days,month,years}) => {
+const filteredEventsList = (eventsList, { days, month, years }) => {
   const filteredEventsListElems = eventsList
-    .filter(event => 
-      days.includes(event.day) &&
-      month.includes(event.month) &&
-      years.includes(event.year));
+    .filter(event => days.includes(event.day)
+      && month.includes(event.month)
+      && years.includes(event.year));
 
   return filteredEventsListElems;
-}
+};
 
 const createEventContainerElem = (id, timeLengthInMinutes, eventTimeFrom) => {
   const eventContainerElem = document.createElement('div');
@@ -17,7 +16,7 @@ const createEventContainerElem = (id, timeLengthInMinutes, eventTimeFrom) => {
   eventContainerElem.setAttribute('style', `height: ${timeLengthInMinutes}px; margin-top: ${eventTimeFrom.substr(3)}px;}`);
 
   return eventContainerElem;
-}
+};
 
 const createEventTitle = title => {
   const eventTitleElem = document.createElement('h3');
@@ -25,37 +24,37 @@ const createEventTitle = title => {
   eventTitleElem.textContent = title;
 
   return eventTitleElem;
-}
+};
 
 const createEventTimeElem = (timeFrom, timeTo) => {
   const eventTimeElem = document.createElement('div');
   eventTimeElem.classList.add('event-time');
 
   const eventTimeSpanElem = document.createElement('span');
-  eventTimeSpanElem.textContent = `${timeFrom} - ${timeTo}`
+  eventTimeSpanElem.textContent = `${timeFrom} - ${timeTo}`;
 
   eventTimeElem.append(eventTimeSpanElem);
 
   return eventTimeElem;
-}
+};
 
 export const renderEvents = eventsList => {
   const eventsListElem = eventsList;
 
-  const weekDays = [...document.querySelectorAll(".calendar__sector-column")];
+  const weekDays = [...document.querySelectorAll('.calendar__sector-column')];
   const weekDaysLine = [...document.querySelectorAll('[data-type="sell"]')];
 
-  const days = weekDays.map(el => +el.dataset.setDay)
-  const month = weekDays.map(el => +el.dataset.setMonth)
-  const years = weekDays.map(el => +el.dataset.setYear)
+  const days = weekDays.map(el => +el.dataset.setDay);
+  const month = weekDays.map(el => +el.dataset.setMonth);
+  const years = weekDays.map(el => +el.dataset.setYear);
 
   const filteredEventsListElems = filteredEventsList(eventsListElem, {
     days,
     month,
-    years
+    years,
   });
 
-  weekDaysLine.forEach(line => line.innerHTML = '');
+  weekDaysLine.forEach(line => line.innerHTML = ''); // eslint-disable-line no-return-assign
 
 
   const filteredEventsElems = filteredEventsListElems
@@ -69,23 +68,23 @@ export const renderEvents = eventsList => {
       return eventContainerElem;
     });
 
-  
+
   weekDays.forEach(el => {
     filteredEventsListElems.forEach((event, index) => {
-      if (event.day === +el.dataset.setDay &&
-          event.month === +el.dataset.setMonth &&
-          event.year === +el.dataset.setYear) {
-            el.querySelectorAll('[data-type="sell"]')
-              .forEach(sell => {
-              const eventHours = event.eventTimeFrom;
-              const sellDataHours = sell.dataset.setHour;
-              if (sellDataHours === eventHours) {
-                sell.append(filteredEventsElems[index])
-              }
-            })
-          }
-    })
-  })
+      if (event.day === +el.dataset.setDay
+          && event.month === +el.dataset.setMonth
+          && event.year === +el.dataset.setYear) {
+        el.querySelectorAll('[data-type="sell"]')
+          .forEach(sell => {
+            const eventHours = event.eventTimeFrom;
+            const sellDataHours = sell.dataset.setHour;
+            if (sellDataHours === eventHours) {
+              sell.append(filteredEventsElems[index]);
+            }
+          });
+      }
+    });
+  });
 };
 
 // Изначальная ф-я рендера
@@ -95,7 +94,7 @@ export const renderEvents = eventsList => {
 
 //   const weekDays = [...document.querySelectorAll(".calendar__sector-column")];
 //   const weekDaysLine = [...document.querySelectorAll(".calendar__sector-line")];
-  
+
 //   weekDaysLine.forEach(line => line.innerHTML = '');
 //   weekDays.forEach(el => {
 //     eventsListElem.forEach(event => {
@@ -114,5 +113,3 @@ export const renderEvents = eventsList => {
 //   })
 
 // };
-
-

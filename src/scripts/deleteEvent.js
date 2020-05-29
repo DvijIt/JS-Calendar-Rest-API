@@ -1,17 +1,15 @@
-import { modal } from "./storage.js";
-import { renderEvents } from "./renderEvents.js";
-import { getEventsList, deleteEvent } from "./eventsGateway.js";
-import { getEventId } from './touchEvent.js'
+import { modal } from './storage.js';
+import { renderEvents } from './renderEvents.js';
+import { getEventsList, deleteEvent } from './eventsGateway.js';
+import { getEventId } from './touchEvent.js';
 
-const btnRemoveEvent = document.querySelector(".btn-delete-event");
+const btnRemoveEvent = document.querySelector('.btn-delete-event');
 
-btnRemoveEvent.addEventListener('click', async function () {
-  
+btnRemoveEvent.addEventListener('click', async () => {
   deleteEvent(getEventId)
-  .then(() => getEventsList())
-  .then(newTasksList => {
-    renderEvents(newTasksList);
-    modal.close();
-  });
-  
-})
+    .then(() => getEventsList())
+    .then(newTasksList => {
+      renderEvents(newTasksList);
+      modal.close();
+    });
+});

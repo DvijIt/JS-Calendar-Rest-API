@@ -1,12 +1,13 @@
-import { generateNumberRange, month, weekDays, getRangeOfWeek } from "./storage.js";
-import { renderEvents } from './renderEvents.js'
-import { getEventsList } from "./eventsGateway.js";
+import {
+  generateNumberRange, month, weekDays, getRangeOfWeek,
+} from './storage.js';
+import { renderEvents } from './renderEvents.js';
+import { getEventsList } from './eventsGateway.js';
 
-const dateMonth = document.querySelector(".date__month");
-const dayFullTime = document.querySelector(".time-of-day");
-const timezone = document.querySelector(".calendar__timezone");
-const sectorDays = document.querySelector(".calendar__sector");
-
+const dateMonth = document.querySelector('.date__month');
+const dayFullTime = document.querySelector('.time-of-day');
+const timezone = document.querySelector('.calendar__timezone');
+const sectorDays = document.querySelector('.calendar__sector');
 
 
 // милисекунд в дне
@@ -14,38 +15,38 @@ const oneDay = 1000 * 60 * 60 * 24;
 
 const getMonday = () => {
   // милисекунд сейчас
-  let now = new Date().getTime();
+  const now = new Date().getTime();
   // милисекунд от вс до текущего дня недели
-  let to = new Date().getDay() * oneDay;
+  const to = new Date().getDay() * oneDay;
 
   if (new Date().getDay() !== 0) return new Date(now - to + oneDay);
-  
-  return new Date(now - oneDay * 6)
+
+  return new Date(now - oneDay * 6);
 };
 
-export let monday = getMonday();
+export const monday = getMonday();
 
 let next = 0;
 export let nextMonday = new Date(monday.getTime() + oneDay * next);
 
 // render Week: show name days of week (ПН-ВС)
 const renderWeek = () => {
-  const weekDaysList = document.querySelector(".week__days");
+  const weekDaysList = document.querySelector('.week__days');
   const daysRange = generateNumberRange(0, 6)
-    .map(el => `<li>${weekDays[el]}</li>`).join("");
+    .map(el => `<li>${weekDays[el]}</li>`).join('');
   weekDaysList.innerHTML = daysRange;
 };
 
 const todayDay = () => {
-  const arrDays = [...document.querySelectorAll(".week-day")];
+  const arrDays = [...document.querySelectorAll('.week-day')];
   arrDays.forEach(el => {
     if (
-      el.dataset.weekDay == new Date().getDate() &&
-      el.dataset.weekMonth == new Date().getMonth() &&
-      el.dataset.weekYear == new Date().getFullYear()
+      el.dataset.weekDay === new Date().getDate()
+      && el.dataset.weekMonth === new Date().getMonth()
+      && el.dataset.weekYear === new Date().getFullYear()
     ) {
-      el.firstElementChild.classList.add("day-today");
-      el.classList.add("get-today");
+      el.firstElementChild.classList.add('day-today');
+      el.classList.add('get-today');
       el.innerHTML = `<span class="day-today">${new Date().getDate()}</span>`;
     }
   });
@@ -53,12 +54,10 @@ const todayDay = () => {
 
 // render Week: show day number of month for shown week
 const renderWeekDays = () => {
-  const sectorWeekDays = document.querySelector(".week__days-number");
+  const sectorWeekDays = document.querySelector('.week__days-number');
   const sectorWeek = getRangeOfWeek(nextMonday, 0, 6)
-    .map(day =>
-      `<li class="week-day" data-week-year="${day.year}" data-week-month="${day.month}" data-week-day="${day.day}"><span>${day.day}</span></li>`
-    )
-    .join("");
+    .map(day => `<li class="week-day" data-week-year="${day.year}" data-week-month="${day.month}" data-week-day="${day.day}"><span>${day.day}</span></li>`)
+    .join('');
 
   sectorWeekDays.innerHTML = sectorWeek;
   todayDay();
@@ -66,23 +65,23 @@ const renderWeekDays = () => {
 
 // show month from week shown
 const getMonthContent = () => {
-  const arrDays = [...document.querySelectorAll(".week-day")];
+  const arrDays = [...document.querySelectorAll('.week-day')];
   const arrMonth = [];
 
   arrDays.forEach(el => {
     arrMonth.push({
       month: el.dataset.weekMonth,
-      year: el.dataset.weekYear
+      year: el.dataset.weekYear,
     });
   });
   const newArr = [{
-      month: arrMonth[0].month,
-      year: arrMonth[0].year
-    },
-    {
-      month: arrMonth[arrMonth.length - 1].month,
-      year: arrMonth[arrMonth.length - 1].year
-    }
+    month: arrMonth[0].month,
+    year: arrMonth[0].year,
+  },
+  {
+    month: arrMonth[arrMonth.length - 1].month,
+    year: arrMonth[arrMonth.length - 1].year,
+  },
   ];
   const starMonth = newArr[0].month;
   const startYear = newArr[0].year;
@@ -104,7 +103,7 @@ const getMonthContent = () => {
 const renderTimeLine = () => {
   timezone.textContent = new Date()
     .toString()
-    .split(" ")[5]
+    .split(' ')[5]
     .slice(0, 6);
   const hourTimeOfDay = generateNumberRange(0, 23)
     .map(el => {
@@ -113,7 +112,7 @@ const renderTimeLine = () => {
           <li class="hour-of-time" data-sector-time="${el}" data-time="${el}:00">${el}:00</li>
         `;
     })
-    .join("");
+    .join('');
 
   dayFullTime.innerHTML = hourTimeOfDay;
 };
@@ -122,38 +121,35 @@ const renderTimeLine = () => {
 const renderCalendarSector = () => {
   const time = [...document.querySelectorAll('.hour-of-time')].map(el => el.getAttribute('data-time'));
 
-  const renderDayTime = () =>
-    generateNumberRange(0, 23)
+  const renderDayTime = () => generateNumberRange(0, 23)
     .map(
-      line =>
-      `<div class="calendar__sector-line" data-type="sell" data-sector-line="${line}" data-set-hour="${time[line]}"></div>`
+      line => `<div class="calendar__sector-line" data-type="sell" data-sector-line="${line}" data-set-hour="${time[line]}"></div>`,
     )
-    .join("");
+    .join('');
   // !!!!!!!!!!!!!!!!!!
   const sectorColumn = getRangeOfWeek(nextMonday, 0, 6)
     .map(
-      column =>
-      `<div class="calendar__sector-column" data-type="column" data-set-year="${column.year}"year data-set-month="${column.month}" data-set-day="${column.day}">${renderDayTime()}</div>`
+      column => `<div class="calendar__sector-column" data-type="column" data-set-year="${column.year}"year data-set-month="${column.month}" data-set-day="${column.day}">${renderDayTime()}</div>`,
     )
-    .join("");
+    .join('');
 
   sectorDays.innerHTML = sectorColumn;
-  let currentColumnDay = null
+  let currentColumnDay = null;
   if (document.querySelector(`.calendar__sector-column[data-set-year="${new Date().getFullYear()}"][data-set-month="${new Date().getMonth()}"][data-set-day="${new Date().getDate()}"]`)) {
-    currentColumnDay = document.querySelector(`.calendar__sector-column[data-set-year="${new Date().getFullYear()}"][data-set-month="${new Date().getMonth()}"][data-set-day="${new Date().getDate()}"]`)
-    let divLine = document.createElement('div')
-    divLine.classList.add('line-today')
-    currentColumnDay.appendChild(divLine)
+    currentColumnDay = document.querySelector(`.calendar__sector-column[data-set-year="${new Date().getFullYear()}"][data-set-month="${new Date().getMonth()}"][data-set-day="${new Date().getDate()}"]`);
+    const divLine = document.createElement('div');
+    divLine.classList.add('line-today');
+    currentColumnDay.appendChild(divLine);
   }
   let count = new Date().getHours() * 60 + new Date().getMinutes();
 
-  const todayDayEl = document.querySelector(".line-today");
+  const todayDayEl = document.querySelector('.line-today');
   const showCurrentTime = () => {
     todayDayEl.style.top = `${count}px`;
     const countMinutesOfDay = () => {
       setInterval(() => {
         todayDayEl.style.top = `${count}px`;
-        count += 1
+        count += 1;
       }, 60000);
     };
     countMinutesOfDay();
@@ -165,46 +161,46 @@ const renderCalendarSector = () => {
 
 export const renderEventsElem = async () => {
   const eventsList = await getEventsList();
-  renderEvents(eventsList)
-}
+  renderEvents(eventsList);
+};
 
 export const renderDinamicPart = () => {
   renderWeekDays();
   getMonthContent();
   renderCalendarSector();
-  renderEventsElem()
-}
+  renderEventsElem();
+};
 
-const btnToday = document.querySelector(".getToday");
-const prevWeek = document.querySelector(".arrow-prev");
-const nextWeek = document.querySelector(".arrow-next");
+const btnToday = document.querySelector('.getToday');
+const prevWeek = document.querySelector('.arrow-prev');
+const nextWeek = document.querySelector('.arrow-next');
 
 
 // show Current Week
 const getToday = () => {
   next = 0;
   nextMonday = new Date(monday.getTime() + oneDay * next);
-  renderDinamicPart()
+  renderDinamicPart();
 };
 // show Prev Week
 const pullPrev = () => {
   next -= 7;
   nextMonday = new Date(monday.getTime() + oneDay * next);
-  renderDinamicPart()
+  renderDinamicPart();
 };
 // show Next Week
 const pullNext = () => {
   next += 7;
   nextMonday = new Date(monday.getTime() + oneDay * next);
-  renderDinamicPart()
+  renderDinamicPart();
 };
 
-btnToday.addEventListener("click", getToday);
-prevWeek.addEventListener("click", pullPrev);
-nextWeek.addEventListener("click", pullNext);
+btnToday.addEventListener('click', getToday);
+prevWeek.addEventListener('click', pullPrev);
+nextWeek.addEventListener('click', pullNext);
 
 export const renderCalendar = () => {
   renderTimeLine();
   renderWeek();
-  renderDinamicPart()
-}
+  renderDinamicPart();
+};

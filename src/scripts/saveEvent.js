@@ -1,9 +1,9 @@
-import { month, modal } from "./storage.js";
-import { renderEvents } from "./renderEvents.js";
-import { getEventsList, createEvent, updateEventData } from './eventsGateway.js'
-import { getEventId } from './touchEvent.js'
+import { month, modal } from './storage.js';
+import { renderEvents } from './renderEvents.js';
+import { getEventsList, createEvent, updateEventData } from './eventsGateway.js';
+import { getEventId } from './touchEvent.js';
 
-const btnSaveEvent = document.querySelector(".save__event");
+const btnSaveEvent = document.querySelector('.save__event');
 
 const eventTitle = document.querySelector('input[name="nameEvent"]');
 const eventDescription = document.querySelector('textarea[name="eventDescription"]');
@@ -18,11 +18,11 @@ const getDataEvent = () => {
   const getDay = new Date(data).getDate();
   const getMonth = month[new Date(data).getMonth()];
   const getNumberMonth = new Date(data).getMonth();
-  let date = `${getDay} ${getMonth} ${getYear}`;
+  const date = `${getDay} ${getMonth} ${getYear}`;
 
-  let timeFromLength = new Date(getYear, getNumberMonth, getDay, +inputTimeFrom.innerText.substr(0, 2), +inputTimeFrom.innerText.substr(3)).getTime()
-  let timeToLength = new Date(getYear, getNumberMonth, getDay, +inputTimeTo.innerText.substr(0, 2), +inputTimeTo.innerText.substr(3)).getTime()
-  let minutes = (timeToLength - timeFromLength) / 60000;
+  const timeFromLength = new Date(getYear, getNumberMonth, getDay, +inputTimeFrom.innerText.substr(0, 2), +inputTimeFrom.innerText.substr(3)).getTime();
+  const timeToLength = new Date(getYear, getNumberMonth, getDay, +inputTimeTo.innerText.substr(0, 2), +inputTimeTo.innerText.substr(3)).getTime();
+  const minutes = (timeToLength - timeFromLength) / 60000;
 
   const dataEvent = {
     title: eventTitle.value,
@@ -33,13 +33,12 @@ const getDataEvent = () => {
     year: getYear,
     eventTimeFrom: inputTimeFrom.innerText,
     eventTimeTo: inputTimeTo.innerText,
-    timeLengthInMinutes: minutes
-  }
+    timeLengthInMinutes: minutes,
+  };
   return dataEvent;
-}
+};
 
 const createNewEvent = () => {
-  console.log('new');
   const dataEvent = getDataEvent();
 
   createEvent(dataEvent)
@@ -47,13 +46,12 @@ const createNewEvent = () => {
     .then(newTasksList => {
       renderEvents(newTasksList);
       modal.close();
-      eventTitle.value = ''
-      eventDescription.value = ''
+      eventTitle.value = '';
+      eventDescription.value = '';
     });
-}
+};
 
-const editEvent = e => {
-  console.log('edit');
+const editEvent = () => {
   const eventId = getEventId;
   const dataEvent = getDataEvent();
 
@@ -63,19 +61,18 @@ const editEvent = e => {
       renderEvents(newTasksList);
       modal.close();
     });
-}
+};
 
 const saveEvent = e => {
   e.preventDefault();
 
   if (e.target.dataset.type === 'edit') {
-    editEvent(e)
+    editEvent(e);
     return;
   }
   if (e.target.dataset.type === 'save') {
-    createNewEvent()
-    return;
+    createNewEvent();
   }
 };
 
-btnSaveEvent.addEventListener("click", saveEvent);
+btnSaveEvent.addEventListener('click', saveEvent);
