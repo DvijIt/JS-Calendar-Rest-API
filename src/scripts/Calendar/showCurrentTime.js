@@ -18,6 +18,6 @@ export default function () {
       count += 1;
     }, 5000);
   } else {
-    // clearInterval(intervalCounter);
+    clearInterval(intervalCounter);
   }
 }
