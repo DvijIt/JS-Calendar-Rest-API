@@ -23,12 +23,12 @@
           </svg>
           <span>Создать</span>
         </button>
-        <button class="col waves-effect today getToday">
-          Сегодня
-        </button>
-        <div class="col s2 date__navigation">
-          <span class="date__navigation-arrow arrow-prev"><i class="material-icons">chevron_left</i></span>
-          <span class="date__navigation-arrow arrow-next"><i class="material-icons">chevron_right</i></span>
+        <div class="navigation d-flex">
+          <button class="col waves-effect today getToday" data-nav="current">
+            Сегодня
+          </button>
+          <span class="date__navigation-arrow arrow-prev" data-nav="prev"><i class="material-icons">chevron_left</i></span>
+          <span class="date__navigation-arrow arrow-next" data-nav="next"><i class="material-icons">chevron_right</i></span>
         </div>
         <div class="date__range">
           <span class="date__month"></span>

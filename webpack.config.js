@@ -1,24 +1,24 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = (env, argv) => {
-  const isProduction = argv.mode === 'production'
+  const isProduction = argv.mode === 'production';
   const config = {
     entry: './src/index.js',
     output: {
-      filename: 'bundle.js'
+      filename: 'bundle.js',
     },
     module: {
       rules: [
         {
           test: /.js$/,
-          use: ['babel-loader']
+          use: ['babel-loader'],
         },
         {
           test: /.js$/,
-          use: ['babel-loader']
+          use: ['babel-loader'],
         },
         {
           test: /.s?css$/,
@@ -27,7 +27,7 @@ module.exports = (env, argv) => {
               ? MiniCssExtractPlugin.loader
               : 'style-loader',
             'css-loader',
-            'sass-loader']
+            'sass-loader'],
         },
         {
           test: /.(jpg|png)$/,
@@ -36,23 +36,26 @@ module.exports = (env, argv) => {
             options: {
               limit: 8192,
               name: '[name].[ext]',
-              outputPath: 'images'
-            }
-          }]
-        }
-      ]
+              outputPath: 'images',
+            },
+          }],
+        },
+      ],
     },
     plugins: [
       new webpack.ProgressPlugin(),
       new HtmlWebpackPlugin({
-        template: './src/index.html'
+        template: './src/index.html',
       }),
       new CleanWebpackPlugin(),
     ],
     devServer: {
       port: 9000,
-      hot: true
-    }
+      hot: true,
+    },
+    resolve: {
+      extensions: ['.js', '.ts', '.jsx'],
+    },
   };
 
   if (isProduction) {

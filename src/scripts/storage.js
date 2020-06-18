@@ -23,8 +23,6 @@ export const month = [
   'Декабрь',
 ];
 
-export const weekDays = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'];
-
 // render Week Days Number ПН-ВС
 export const getRangeOfWeek = (date, from, to) => {
   const day = new Date(date).getDate();

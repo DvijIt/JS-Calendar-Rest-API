@@ -1,5 +1,5 @@
 
-const filteredEventsList = (eventsList, { days, month, years }) => {
+const getFilteredEventsList = (eventsList, { days, month, years }) => {
   const filteredEventsListElems = eventsList
     .filter(event => days.includes(event.day)
       && month.includes(event.month)
@@ -38,6 +38,18 @@ const createEventTimeElem = (timeFrom, timeTo) => {
   return eventTimeElem;
 };
 
+const getFilteredEventsElems = filteredArray => {
+  const eventElems = filteredArray
+    .map(event => {
+      const eventContainerElem = createEventContainerElem(event.id, event.timeLengthInMinutes, event.eventTimeFrom);
+      const eventTitleElem = createEventTitle(event.title);
+      const eventTimeElem = createEventTimeElem(event.eventTimeFrom, event.eventTimeTo);
+      eventContainerElem.append(eventTitleElem, eventTimeElem);
+      return eventContainerElem;
+    });
+  return eventElems;
+};
+
 export const renderEvents = eventsList => {
   const eventsListElem = eventsList;
 
@@ -48,68 +60,23 @@ export const renderEvents = eventsList => {
   const month = weekDays.map(el => +el.dataset.setMonth);
   const years = weekDays.map(el => +el.dataset.setYear);
 
-  const filteredEventsListElems = filteredEventsList(eventsListElem, {
+  const filteredEventsListElems = getFilteredEventsList(eventsListElem, {
     days,
     month,
     years,
   });
 
+  const filteredEvents = filteredEventsListElems;
+  const filteredEventsElems = getFilteredEventsElems(filteredEvents);
+
   weekDaysLine.forEach(line => line.innerHTML = ''); // eslint-disable-line no-return-assign
-
-
-  const filteredEventsElems = filteredEventsListElems
-    .map(event => {
-      const eventContainerElem = createEventContainerElem(event.id, event.timeLengthInMinutes, event.eventTimeFrom);
-      const eventTitleElem = createEventTitle(event.title);
-      const eventTimeElem = createEventTimeElem(event.eventTimeFrom, event.eventTimeTo);
-
-      eventContainerElem.append(eventTitleElem, eventTimeElem);
-
-      return eventContainerElem;
-    });
-
-
   weekDays.forEach(el => {
-    filteredEventsListElems.forEach((event, index) => {
+    filteredEvents.forEach((event, index) => {
       if (event.day === +el.dataset.setDay
-          && event.month === +el.dataset.setMonth
-          && event.year === +el.dataset.setYear) {
-        el.querySelectorAll('[data-type="sell"]')
-          .forEach(sell => {
-            const eventHours = event.eventTimeFrom;
-            const sellDataHours = sell.dataset.setHour;
-            if (sellDataHours === eventHours) {
-              sell.append(filteredEventsElems[index]);
-            }
-          });
+        && event.month === +el.dataset.setMonth
+        && event.year === +el.dataset.setYear) {
+        el.querySelector(`.calendar__sector-line[data-set-hour="${event.eventTimeFrom.substr(0, 3)}00"]`).append(filteredEventsElems[index]);
       }
     });
   });
 };
-
-// Изначальная ф-я рендера
-// export const renderEvents = eventsList => {
-//   const eventsListElem = eventsList;
-//   console.log(eventsListElem);
-
-//   const weekDays = [...document.querySelectorAll(".calendar__sector-column")];
-//   const weekDaysLine = [...document.querySelectorAll(".calendar__sector-line")];
-
-//   weekDaysLine.forEach(line => line.innerHTML = '');
-//   weekDays.forEach(el => {
-//     eventsListElem.forEach(event => {
-//       if (event.day == el.getAttribute("data-set-day") &&
-//         event.month == el.getAttribute("data-set-month") &&
-//         event.year == el.getAttribute("data-set-year")) {
-//         el.querySelector(`.calendar__sector-line[data-set-hour="${event.eventTimeFrom.substr(0, 3)}00"]`).innerHTML =
-//         `
-//         <div style="height: ${event.timeLengthInMinutes}px; margin-top: ${event.eventTimeFrom.substr(3)}px;" class="event" data-id="${event.id}">
-//           <h3 class="event-title">${event.title}</h3>
-//           <div class="event-time"><span class="event-timeFrom">${event.eventTimeFrom}</span> - <span class="event-timeTo">${event.eventTimeTo}</span></div>
-//         </div>
-//         `
-//       }
-//     })
-//   })
-
-// };

@@ -1,7 +1,7 @@
 module.exports = {
   extends: 'eslint-config-airbnb-base',
   rules: {
-    'no-console': 2,
+    'no-console': 0,
     'import/extensions': 0,
     'import/no-unresolved': 0,
     'arrow-parens': 0,
@@ -13,6 +13,8 @@ module.exports = {
     'no-alert': 0,
     'no-return-await': 0,
     'no-undef': 0,
+    'func-names': 0,
+    'import/no-cycle': 0,
   },
   env: {
     browser: true,
