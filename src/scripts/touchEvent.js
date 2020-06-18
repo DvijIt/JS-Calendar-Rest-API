@@ -14,12 +14,17 @@ export let getEventId = 0;
 const createNewEvent = e => {
   btnSaveEvent.setAttribute('data-type', 'save');
   btnRemoveEvent.setAttribute('data-type', 'disable');
-  const getDay = e.target.parentNode.dataset.setDay;
-  const getMonth = e.target.parentNode.dataset.setMonth;
-  const getYear = e.target.parentNode.dataset.setYear;
-  const getTimeFrom = e.target.dataset.setHour;
-  const getTimeTo = e.target.nextElementSibling.dataset.setHour;
-
+  
+  const $target = e.target;
+  
+  const getDay = $target.parentNode.dataset.setDay;
+  const getMonth = $target.parentNode.dataset.setMonth;
+  const getYear = $target.parentNode.dataset.setYear;
+  const getTimeFrom = $target.dataset.setHour;
+  
+  const getTimeTo = $target.nextElementSibling === null ? '00:00' : $target.nextElementSibling.dataset.setHour;
+  
+  
   const data = {
     getDay,
     getMonth,
